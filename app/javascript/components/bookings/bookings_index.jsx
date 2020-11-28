@@ -1,6 +1,6 @@
 import React, { useEffect, useState }  from 'react';
 
-import { getJS, postJS } from '../../lib/requests';
+import { getJS } from '../../lib/requests';
 
 import BookingsSearch from "./bookings_search"
 import BookingsTable from "./bookings_table"
@@ -39,6 +39,5 @@ export default function BookingsIndex(){
       </div>
     </div>
       {!loading && BookingsTable(bookings)}
-      test
     </div>
 }

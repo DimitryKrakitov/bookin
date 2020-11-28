@@ -1,17 +1,17 @@
 module BookingsHelper
   def display_bookings(bookings = Booking.all)
-    bookings.map do |bookin|
+    bookings.map do |booking|
       {
-        user: bookin.user.name,
-        space: bookin.space.name,
-        start: bookin.start.strftime('%a, %d %b %Y - %H:%M'),
-        finish: bookin.finish.strftime('%a, %d %b %Y - %H:%M')
+        user: booking.user.name,
+        space: booking.space.name,
+        description: booking.description,
+        start: booking.start.strftime('%a, %d %b %Y at %H:%Mh'),
+        finish: booking.finish.strftime('%a, %d %b %Y at %H:%Mh')
       }
     end
   end
 
   def search_bookings(name)
-    binding.pry
     spaces = Space.where('lower(name) LIKE ?', "%#{name.downcase}%")
     spaces.present? ? bookings_from_spaces(spaces) : []
   end

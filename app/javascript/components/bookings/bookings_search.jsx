@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef }  from 'react';
-// import { TextInput } from 'react-native';
+import React, { useState, useRef }  from 'react';
 
-import { getJS, postJS } from '../../lib/requests';
+import { postJS } from '../../lib/requests';
 
 const styles = require('./bookings_search.module.scss');
 
@@ -13,6 +12,8 @@ export default function BookingsSearch(props){
   const textInputRef = useRef(null);
 
   const searchBookings = () => {
+
+    setLoading(true)
 
     const params = {
       name
@@ -30,10 +31,6 @@ export default function BookingsSearch(props){
         alert("Couldn't fetch booking info")
       });
   }
-
-  useEffect(() => {
-    // searchBookings();
-  }, [])
 
   const searchContainer = () => <div className={styles.searchContainer}>
     <div className={styles.inputContainer}>
