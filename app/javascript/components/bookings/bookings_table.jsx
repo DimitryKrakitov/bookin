@@ -4,25 +4,15 @@ const styles = require('./bookings_table.module.scss');
 
 export default function BookingsTable(bookings){
 
-  const tableHeader = () => <div className={styles.tableRowHeader}>
-    <div className={styles.space}>
-      Space
-    </div>
-    <div className={styles.user}>
-      Requester
-    </div>
-    <div className={styles.description}>
-      Description
-    </div>
-    <div className={styles.Start}>
-      Start
-    </div>
-    <div className={styles.finish}>
-      Finish
-    </div>
-  </div>
+  const headerPlaceholder = {
+    space: 'Space',
+    user: 'Requester',
+    description: 'Description',
+    start: 'Start',
+    finish: 'Finish',
+  }
 
-  const bookingElem = (booking, index) => <div className={styles.tableRow} key={index}>
+  const tableRow = (booking) => <>
     <div className={styles.space}>
       {booking.space}
     </div>
@@ -38,6 +28,14 @@ export default function BookingsTable(bookings){
     <div className={styles.finish}>
       {booking.finish}
     </div>
+  </>
+
+  const tableHeader = () => <div className={styles.tableRowHeader}>
+    {tableRow(headerPlaceholder)}
+  </div>
+
+  const bookingElem = (booking, index) => <div className={styles.tableRow} key={index}>
+    {tableRow(booking)}
   </div>
 
   const table = () => <div className={styles.table}>
