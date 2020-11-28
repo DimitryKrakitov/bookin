@@ -4,6 +4,7 @@ import { getJS } from '../../lib/requests';
 
 import BookingsSearch from "./bookings_search"
 import BookingsTable from "./bookings_table"
+import BookingsForm from "./bookings_form"
 
 const styles = require('./bookings_index.module.scss');
 
@@ -35,7 +36,7 @@ export default function BookingsIndex(){
         <BookingsSearch setLoading={setLoading} setbookings={setbookings}/>
     </div>
       <div className={styles.halfContainer}>
-        here be booking creator
+        <BookingsForm />
       </div>
     </div>
       {!loading && BookingsTable(bookings)}

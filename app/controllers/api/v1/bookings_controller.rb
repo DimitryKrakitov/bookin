@@ -4,6 +4,16 @@ class Api::V1::BookingsController < ApplicationController
 
   include BookingsHelper
 
+  def create
+    binding.pry
+
+  rescue
+    render json: {
+      bookings: display_bookings,
+      errors: "Unknown problem booking a new meeting"
+    }
+  end
+
   def index
     render json: {
       bookings: display_bookings,

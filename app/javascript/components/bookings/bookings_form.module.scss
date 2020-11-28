@@ -1,0 +1,59 @@
+.input {
+  // width: 5rem;
+  display: flex;
+  margin-bottom: 0.3rem;
+}
+
+.inputName {
+  width: 6rem;
+  height: 2rem;
+  line-height: 2;
+  margin-right: 0.5rem;
+}
+
+.smallInputName {
+  @extend .inputName;
+  width: 3.1rem;
+}
+
+.form {
+  display: flex;
+  border-left: solid 1px black;
+  padding-left: 2rem;
+}
+
+.formTitle {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.leftForm {
+  display: block;
+}
+
+.rightForm {
+  display: block;
+  margin: 3rem 0 0 2rem;
+}
+
+.select {
+  height: 2rem;
+  width: 9rem;
+}
+
+.button{
+  height: 2rem;
+  width: 4rem;
+  background-color: lightblue;
+  line-height: 2;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 0.3rem;
+  margin-top: 2.5rem;
+  float: right;
+
+  &:hover {
+    box-shadow: 0 0 1rem #00d9ff;
+    cursor: pointer;
+  }
+}

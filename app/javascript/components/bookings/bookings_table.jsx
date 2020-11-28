@@ -22,7 +22,7 @@ export default function BookingsTable(bookings){
     <div className={styles.description}>
       {booking.description || ' - No description - '}
     </div>
-    <div className={styles.Start}>
+    <div className={styles.start}>
       {booking.start}
     </div>
     <div className={styles.finish}>
