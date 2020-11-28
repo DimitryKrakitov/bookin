@@ -11,6 +11,7 @@ module BookingsHelper
   end
 
   def search_bookings(name)
+    binding.pry
     spaces = Space.where('lower(name) LIKE ?', "%#{name.downcase}%")
     spaces.present? ? bookings_from_spaces(spaces) : []
   end
