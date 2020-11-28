@@ -1,12 +1,8 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      get 'calendar/index'
-      post 'calendar/next_page', to: 'calendar#next_page'
-      post 'calendar/previous_page', to: 'calendar#previous_page'
-
-      post 'slots/interviewer', to: 'slots#create_meeting'
-      post 'slots/candidate', to: 'slots#create_interview'
+      get 'bookings/index'
+      # resources :bookings, controller: 'bookings', only: %i[create index destroy]
     end
   end
   root 'homepage#index'
@@ -15,5 +11,4 @@ Rails.application.routes.draw do
     registrations: 'users/registrations' }
 
   get '/*path' => 'homepage#index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
