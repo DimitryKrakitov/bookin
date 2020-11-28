@@ -5,15 +5,22 @@ class Api::V1::BookingsController < ApplicationController
   include BookingsHelper
 
   def index
-    # binding.pry
     render json: {
-      bookings: display_bookings
+      bookings: display_bookings,
+      user: current_user.present?
+    }
+  end
+
+  def search
+    render json: {
+      bookings: search_bookings(search_params),
+      user: current_user.present?
     }
   end
 
   private
 
-  def page_response(json)
-    [json['date'].to_date, json['target'].to_sym]
+  def search_params
+    request_params['name']
   end
 end

@@ -9,4 +9,15 @@ module BookingsHelper
       }
     end
   end
+
+  def search_bookings(name)
+    spaces = Space.where('lower(name) LIKE ?', "%#{name.downcase}%")
+    spaces.present? ? bookings_from_spaces(spaces) : []
+  end
+
+  private
+
+  def bookings_from_spaces(spaces)
+    spaces.map { |space| display_bookings(space.bookings) }.flatten
+  end
 end

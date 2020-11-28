@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
-  def format_response
+  def request_params
     JSON.parse(request.body.read)
   end
 end

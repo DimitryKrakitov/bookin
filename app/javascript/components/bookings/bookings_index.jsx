@@ -2,19 +2,20 @@ import React, { useEffect, useState }  from 'react';
 
 import { getJS, postJS } from '../../lib/requests';
 
+import BookingsSearch from "./bookings_search"
+
 const styles = require('./bookings_index.module.scss');
 
-export default function BookingsIndex(props){
+export default function BookingsIndex(){
 
   const [bookings, setbookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchBookings = (name = null) => {
+  const fetchBookings = () => {
     const url = "/api/v1/bookings/index";
 
     getJS(url)
       .then(response => {
-        debugger
         setbookings(response.bookings)
         setLoading(false)
       })
@@ -27,5 +28,9 @@ export default function BookingsIndex(props){
     fetchBookings();
   }, [])
 
-  return <div> Test component </div>
+  return <div>
+    Test component
+    {!loading && bookings.toString()}
+    <BookingsSearch setLoading={setLoading} setbookings={setbookings}/>
+    </div>
 }
