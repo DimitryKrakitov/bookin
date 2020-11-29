@@ -1,0 +1,23 @@
+.searchContainer {
+  display: flex;
+  text-align: center;
+}
+
+.button{
+  margin-left: 0.7rem;
+  height: 2rem;
+  width: 5rem;
+  background-color: gray;
+  line-height: 2;
+
+  &:hover {
+    box-shadow: 0 0 1rem #00d9ff;
+    cursor: pointer;
+  }
+}
+
+.textInput {
+  height: 2rem;
+  border-color: 'gray';
+  border-width: 1;
+}

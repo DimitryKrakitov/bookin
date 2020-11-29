@@ -1,0 +1,45 @@
+.table {
+  width: 100%;
+  border: solid 1px black;
+}
+
+.tableRow {
+  min-height: 1.5rem;
+  line-height: 1.5;
+  display: flex;
+
+  &:hover {
+    box-shadow: 0 0 1rem #00d9ff;
+  }
+}
+
+.tableRowHeader {
+  @extend .tableRow;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+
+  &:hover{
+    box-shadow: 0;
+  }
+}
+
+.space {
+  width: 15%;
+}
+
+.user {
+  width: 15%;
+}
+
+.description {
+  width: 40%;
+}
+
+.start {
+  width: 15%;
+}
+
+.finish {
+  width: 15%;
+}
