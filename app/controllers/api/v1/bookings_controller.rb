@@ -17,8 +17,7 @@ class Api::V1::BookingsController < ApplicationController
         errors: booking.errors.messages
       }
     end
-  rescue => e
-    binding.pry
+  rescue
     render json: {
       bookings: display_bookings,
       errors: { booking: ['Unknown problem booking a new meeting'] }

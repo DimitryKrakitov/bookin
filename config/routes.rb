@@ -4,7 +4,6 @@ Rails.application.routes.draw do
       get 'bookings/index'
       post 'bookings/search', to: 'bookings#search'
       post 'bookings/create', to: 'bookings#create'
-      # resources :bookings, controller: 'bookings', only: %i[create index destroy]
 
       get 'spaces/index'
     end
