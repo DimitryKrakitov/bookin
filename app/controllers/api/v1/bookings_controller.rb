@@ -5,12 +5,23 @@ class Api::V1::BookingsController < ApplicationController
   include BookingsHelper
 
   def create
-    binding.pry
+    booking = Booking.new(create_params)
 
-  rescue
+    if booking.save
+      render json: {
+        bookings: display_bookings
+      }
+    else
+      render json: {
+        bookings: display_bookings,
+        errors: booking.errors.messages
+      }
+    end
+  rescue => e
+    binding.pry
     render json: {
       bookings: display_bookings,
-      errors: "Unknown problem booking a new meeting"
+      errors: { booking: ['Unknown problem booking a new meeting'] }
     }
   end
 
@@ -32,5 +43,16 @@ class Api::V1::BookingsController < ApplicationController
 
   def search_params
     request_params['name']
+  end
+
+  def create_params
+    new_params = request_params
+    {
+      space_id: Space.find_by(name: new_params['room'])&.id,
+      start: new_params['Start'],
+      finish: new_params['Finish'],
+      description: new_params['Description'],
+      user_id: current_user.id
+    }
   end
 end

@@ -10,7 +10,7 @@ const styles = require('./bookings_index.module.scss');
 
 export default function BookingsIndex(){
 
-  const [bookings, setbookings] = useState([]);
+  const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchBookings = () => {
@@ -18,7 +18,7 @@ export default function BookingsIndex(){
 
     getJS(url)
       .then(response => {
-        setbookings(response.bookings)
+        setBookings(response.bookings)
         setLoading(false)
       })
       .catch(() => {
@@ -33,10 +33,10 @@ export default function BookingsIndex(){
   return <div>
     <div className={styles.upperContainer}>
       <div className={styles.halfContainer}>
-        <BookingsSearch setLoading={setLoading} setbookings={setbookings}/>
+        <BookingsSearch setLoading={setLoading} setBookings={setBookings}/>
     </div>
       <div className={styles.halfContainer}>
-        <BookingsForm />
+        <BookingsForm setLoading={setLoading} setBookings={setBookings}/>
       </div>
     </div>
       {!loading && BookingsTable(bookings)}

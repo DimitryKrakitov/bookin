@@ -8,13 +8,13 @@ class Booking < ApplicationRecord
   validates :start, presence: true
   validates :finish, presence: true
 
-  validates_numericality_of :finish, greater_than: :start, message: ' must be after start'
+  # validates_numericality_of :finish, greater_than: :start, message: 'finish must be after start'
 
+  validate :valid_time_slot
 
-  # private
+  private
 
-  # def valid_time_slot
-  #   errors.add(:stop, "stop date cannot be older than start date") if stop < end
-  # end
-
+  def valid_time_slot
+    errors.add(:finish, 'Finish must be after start') if start && finish && start >= finish
+  end
 end

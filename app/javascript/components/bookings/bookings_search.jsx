@@ -6,7 +6,7 @@ const styles = require('./bookings_search.module.scss');
 
 export default function BookingsSearch(props){
 
-  const { setbookings, setLoading } = props;
+  const { setBookings, setLoading } = props;
 
   const [name, setName] = useState('');
   const textInputRef = useRef(null);
@@ -24,7 +24,7 @@ export default function BookingsSearch(props){
       params
       )
       .then(response => {
-        setbookings(response.bookings)
+        setBookings(response.bookings)
         setLoading(false)
       })
       .catch(() => {

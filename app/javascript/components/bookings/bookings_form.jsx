@@ -11,6 +11,7 @@ const placeholders = {
 }
 
 export default function BookingsForm(props){
+  const { setBookings, setLoading } = props;
   const [rooms, setRooms] = useState([]);
 
   const [description, setDescription] = useState('');
@@ -23,11 +24,27 @@ export default function BookingsForm(props){
   const startRef = useRef(null);
   const finishRef = useRef(null);
 
-  const formRefs = {
-    Description: descriptionRef,
-    Start: startRef,
-    Finish: finishRef
+  // const formRefs = {
+  //   Description: descriptionRef,
+  //   Start: startRef,
+  //   Finish: finishRef
+  // }
+
+  // const formSetters = {
+  //   Description: setDescription,
+  //   Start: setStart,
+  //   Finish: setFinish
+  // }
+
+  const fromHandler = {
+    Description: { setter: setDescription, state: description, ref: descriptionRef },
+    Start: { setter: setStart, state: start, ref: startRef },
+    Finish: { setter: setFinish, state: finish, ref: finishRef }
   }
+
+  const resetform = () => Object.keys(fromHandler).forEach(
+    (formInput) => fromHandler[formInput].setter('')
+  )
 
   const fetchSpaces = () => {
     const url = "/api/v1/spaces/index";
@@ -35,10 +52,10 @@ export default function BookingsForm(props){
     getJS(url)
       .then(response => {
         setRooms(response.spaces)
-        setRoom(rooms[0])
+        setRoom(response.spaces[0])
       })
       .catch(() => {
-        alert("Couldn't room names")
+        alert("Couldn't fetch room names")
       });
   }
 
@@ -47,22 +64,35 @@ export default function BookingsForm(props){
   }, [])
 
   const createBooking = () => {
-
-    debugger
-
-    const params = {
-      name
-    }
+    setLoading(true)
+    const params = Object.keys(fromHandler).reduce(
+      (accumulator, inputName) => {
+        accumulator[inputName] = fromHandler[inputName].state;
+        return accumulator;
+      }
+      ,
+      { room }
+    )
 
     postJS(
       "/api/v1/bookings/create",
       params
       )
       .then(response => {
-        setbookings(response.bookings)
+        setBookings(response.bookings)
+        if (response.errors) {
+          // debugger
+          alert(Object.entries(response.errors).map(
+            ([name, value]) => `${name}: ${value.join("\n")}`
+          ).join("\n"));
+        } else {
+          resetform();
+        }
+        setLoading(false);
       })
       .catch(() => {
-        alert("Couldn't fetch booking info")
+        alert("There was an unknown problem booking a new meeting");
+        setLoading(false);
       });
   }
 
@@ -73,10 +103,11 @@ export default function BookingsForm(props){
     </div>
     <input
       className={styles.textInput}
-      onChange={() => setName(textInputRef.current.value)}
-      // value={name}
+      // onChange={() => formSetters[kind](formRefs[kind].current.value)}
+      onChange={() => fromHandler[kind].setter(fromHandler[kind].ref.current.value)}
+      value={fromHandler[kind].state}
       placeholder={placeholders[kind]}
-      ref={formRefs[kind]}
+      ref={fromHandler[kind].ref}
     />
   </div>
 
