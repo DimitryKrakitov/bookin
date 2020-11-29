@@ -1,18 +1,19 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import ReactSixteenAdapter from 'enzyme-adapter-react-16';
 import BookingsForm from "./bookings_form"
 
-const createProps = {
+Enzyme.configure({ adapter: new ReactSixteenAdapter() })
+
+const props = {
     setBookings: jest.fn(),
     setLoading: jest.fn()
   }
 
-let props;
 let wrapped;
 
 describe('BookingsForm renders correctly', () => {
   beforeEach(() => {
-    props = createProps();
     wrapped = shallow(<BookingsForm {...props} />);
   });
 
@@ -29,6 +30,6 @@ describe('BookingsForm renders correctly', () => {
   });
 
   it('renders all 3 text inputs', () => {
-    expect(wrapped.find("select")).toHaveLength(3)
+    expect(wrapped.find("input")).toHaveLength(3)
   });
 });
