@@ -12,6 +12,7 @@ export default function BookingsIndex(){
 
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(false);
 
   const fetchBookings = () => {
     const url = "/api/v1/bookings/index";
@@ -19,6 +20,7 @@ export default function BookingsIndex(){
     getJS(url)
       .then(response => {
         setBookings(response.bookings)
+        setUser(response.user)
         setLoading(false)
       })
       .catch(() => {
@@ -36,7 +38,7 @@ export default function BookingsIndex(){
         <BookingsSearch setLoading={setLoading} setBookings={setBookings}/>
     </div>
       <div className={styles.halfContainer}>
-        <BookingsForm setLoading={setLoading} setBookings={setBookings}/>
+        {user && <BookingsForm setLoading={setLoading} setBookings={setBookings}/> }
       </div>
     </div>
       {!loading && BookingsTable(bookings)}
