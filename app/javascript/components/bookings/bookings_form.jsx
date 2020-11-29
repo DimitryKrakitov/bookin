@@ -12,6 +12,7 @@ const placeholders = {
 
 export default function BookingsForm(props){
   const { setBookings, setLoading } = props;
+
   const [rooms, setRooms] = useState([]);
 
   const [description, setDescription] = useState('');
@@ -19,22 +20,9 @@ export default function BookingsForm(props){
   const [finish, setFinish] = useState('');
   const [room, setRoom] = useState('');
 
-
   const descriptionRef = useRef(null);
   const startRef = useRef(null);
   const finishRef = useRef(null);
-
-  // const formRefs = {
-  //   Description: descriptionRef,
-  //   Start: startRef,
-  //   Finish: finishRef
-  // }
-
-  // const formSetters = {
-  //   Description: setDescription,
-  //   Start: setStart,
-  //   Finish: setFinish
-  // }
 
   const fromHandler = {
     Description: { setter: setDescription, state: description, ref: descriptionRef },
@@ -47,7 +35,7 @@ export default function BookingsForm(props){
   )
 
   const fetchSpaces = () => {
-    const url = "/api/v1/spaces/index";
+    const url = '/api/v1/spaces/index';
 
     getJS(url)
       .then(response => {
@@ -75,13 +63,12 @@ export default function BookingsForm(props){
     )
 
     postJS(
-      "/api/v1/bookings/create",
+      '/api/v1/bookings/create',
       params
       )
       .then(response => {
         setBookings(response.bookings)
         if (response.errors) {
-          // debugger
           alert(Object.entries(response.errors).map(
             ([name, value]) => `${name}: ${value.join("\n")}`
           ).join("\n"));
@@ -91,11 +78,10 @@ export default function BookingsForm(props){
         setLoading(false);
       })
       .catch(() => {
-        alert("There was an unknown problem booking a new meeting");
+        alert('There was an unknown problem booking a new meeting');
         setLoading(false);
       });
   }
-
 
   const defaultInput = (kind) => <div className={styles.input} key={kind}>
     <div className={styles.inputName}>
@@ -103,7 +89,6 @@ export default function BookingsForm(props){
     </div>
     <input
       className={styles.textInput}
-      // onChange={() => formSetters[kind](formRefs[kind].current.value)}
       onChange={() => fromHandler[kind].setter(fromHandler[kind].ref.current.value)}
       value={fromHandler[kind].state}
       placeholder={placeholders[kind]}

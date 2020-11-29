@@ -5,7 +5,6 @@ import { postJS } from '../../lib/requests';
 const styles = require('./bookings_search.module.scss');
 
 export default function BookingsSearch(props){
-
   const { setBookings, setLoading } = props;
 
   const [name, setName] = useState('');

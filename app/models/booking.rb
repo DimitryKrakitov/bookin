@@ -7,9 +7,6 @@ class Booking < ApplicationRecord
 
   validates :start, presence: true
   validates :finish, presence: true
-
-  # validates_numericality_of :finish, greater_than: :start, message: 'finish must be after start'
-
   validate :valid_time_slot
 
   private
