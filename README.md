@@ -1,4 +1,4 @@
-# bookin
+# Bookin'
 simple app to create and filter bookings
 
 Users without accounts can't create new bookings, only see the ones already created
